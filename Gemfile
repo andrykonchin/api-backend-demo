@@ -5,7 +5,8 @@ gem 'rails', '4.2'
 gem 'pg'
 
 gem 'rails-api'
-
+gem 'active_model_serializers', '= 0.9.3'
+gem 'bcrypt'
 
 
 # To use ActiveModel has_secure_password
