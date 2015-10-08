@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+newdev:
+  <<: *default
+  username: ios_demo
+  password: ios_demo
+  database: ios_demo
+  host: localhost
+
+development:
+  <<: *default
+  database: ios_demo_development
+
+test:
+  <<: *default
+  database: ios_demo_test
+
