@@ -7,7 +7,7 @@ class AuthenticationTokenStrategy < ::Warden::Strategies::Base
 
   def authenticate!
     session = DeviceSession.find_by(authentication_token: authentication_token)
-    user = session.user
+    user = session.user if session.present?
     user.nil? ? fail!('strategies.authentication_token.failed') : success!(user)
   end
 

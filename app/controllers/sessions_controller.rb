@@ -20,15 +20,15 @@ class SessionsController < ApplicationController
 
   def destroy
     authenticate!
-    current_user.device_session.where(authentication_token: authentication_token).destroy_all
+    current_user.device_sessions.where(authentication_token: params[:authentication_token]).destroy_all
   end
 
   private
 
-  def authentication_token_from_request
-    token_and_options = ActionController::HttpAuthentication::Token.token_and_options(request)
-    token_and_options[0]
-  end
+  #def authentication_token_from_request
+  #  token_and_options = ActionController::HttpAuthentication::Token.token_and_options(request)
+  #  token_and_options[0]
+  #end
 
   def generate_token(user)
     Digest::SHA1.hexdigest("#{user.email}:#{friendly_token}#{Time.now()}")
