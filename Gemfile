@@ -8,6 +8,7 @@ gem 'rails-api'
 gem 'active_model_serializers', '= 0.9.3'
 gem 'bcrypt'
 gem 'warden'
+gem 'paperclip', '~> 4.2'
 
 group :development, :test do
   gem 'pry'
