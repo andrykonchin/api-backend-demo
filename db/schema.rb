@@ -11,10 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008132512) do
+ActiveRecord::Schema.define(version: 20151111154024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "device_sessions", force: :cascade do |t|
+    t.string   "authentication_token", null: false
+    t.integer  "user_id",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "title",              null: false
+    t.text     "body",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "video_file_name"
+    t.string   "video_content_type"
+    t.integer  "video_file_size"
+    t.datetime "video_updated_at"
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.integer  "user_id",              null: false
@@ -32,5 +50,6 @@ ActiveRecord::Schema.define(version: 20151008132512) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "device_sessions", "users"
   add_foreign_key "sessions", "users"
 end
