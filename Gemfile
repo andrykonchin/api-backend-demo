@@ -7,7 +7,20 @@ gem 'pg'
 gem 'rails-api'
 gem 'active_model_serializers', '= 0.9.3'
 gem 'bcrypt'
+gem 'warden'
 
+group :development, :test do
+  gem 'pry'
+end
+
+group :test do
+  gem 'timecop'
+  gem 'faker'
+  gem 'factory_girl_rails'
+  gem 'json_spec'
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
