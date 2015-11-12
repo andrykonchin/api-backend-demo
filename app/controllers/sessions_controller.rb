@@ -25,11 +25,6 @@ class SessionsController < ApplicationController
 
   private
 
-  #def authentication_token_from_request
-  #  token_and_options = ActionController::HttpAuthentication::Token.token_and_options(request)
-  #  token_and_options[0]
-  #end
-
   def generate_token(user)
     Digest::SHA1.hexdigest("#{user.email}:#{friendly_token}#{Time.now()}")
   end

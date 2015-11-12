@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   def create
-    user = User.build(user_params.exclude(:password))
+    user = User.new(user_params.except(:password))
     user.encrypted_password = BCrypt::Password.create(user_params[:password])
     user.save
-    render_resource_or_errors user
+    render_resource_or_errors(user, status: 201)
   end
 
   private
