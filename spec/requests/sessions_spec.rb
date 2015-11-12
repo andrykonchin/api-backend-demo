@@ -10,7 +10,7 @@ describe 'User session' do
       expect(response.code).to eq '201'
       token = JSON.parse(response.body)['resource']['authentication_token']
 
-      get '/profile', authentication_token: token
+      get '/profile', {}, default_headers_for_token(token)
       expect(response.code).to eq '200'
     end
 
@@ -26,7 +26,7 @@ describe 'User session' do
           expect(session.response.code).to eq '201'
           token = JSON.parse(session.response.body)['resource']['authentication_token']
 
-          session.get '/profile', authentication_token: token
+          session.get '/profile', {}, default_headers_for_token(token)
           expect(session.response.code).to eq '200'
         end
       end
@@ -42,10 +42,10 @@ describe 'User session' do
         expect(session2.response.code).to eq '201'
         token2 = JSON.parse(session2.response.body)['resource']['authentication_token']
 
-        session1.get '/profile', authentication_token: token1
+        session1.get '/profile', {}, default_headers_for_token(token1)
         expect(session1.response.code).to eq '200'
 
-        session2.get '/profile', authentication_token: token2
+        session2.get '/profile', {}, default_headers_for_token(token2)
         expect(session2.response.code).to eq '200'
       end
     end
@@ -60,13 +60,13 @@ describe 'User session' do
       expect(response.code).to eq '201'
       token = JSON.parse(response.body)['resource']['authentication_token']
 
-      get '/profile', authentication_token: token
+      get '/profile', {}, default_headers_for_token(token)
       expect(response.code).to eq '200'
 
-      delete '/session', authentication_token: token
+      delete '/session', {}, default_headers_for_token(token)
       expect(response.code).to eq '200'
 
-      get '/profile', authentication_token: token
+      get '/profile', {}, default_headers_for_token(token)
       expect(response.code).to eq '401'
     end
   end

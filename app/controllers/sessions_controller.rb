@@ -20,7 +20,9 @@ class SessionsController < ApplicationController
 
   def destroy
     authenticate!
-    current_user.device_sessions.where(authentication_token: params[:authentication_token]).destroy_all
+    current_user.device_sessions.
+      where(authentication_token: authentication_token).
+      destroy_all
   end
 
   private
@@ -31,5 +33,9 @@ class SessionsController < ApplicationController
 
   def friendly_token
     SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz')
+  end
+
+  def authentication_token
+    TokenAuthentication.token_from_request(request)
   end
 end
