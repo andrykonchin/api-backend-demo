@@ -14,5 +14,11 @@ FactoryGirl.define do
         user.encrypted_password = BCrypt::Password.create(evaluator.password)
       end
     end
+
+    trait :signed_in do
+      after(:create) do |user|
+        user.device_sessions << build(:device_session, user: nil)
+      end
+    end
   end
 end
