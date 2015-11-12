@@ -5,6 +5,7 @@ IosDemo::Application.routes.draw do
 
   resources :users, only: [:create]
   resource :session, only: [:create, :destroy]
+  resource :profile, only: :show
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
