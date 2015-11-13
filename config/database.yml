@@ -18,3 +18,10 @@ test:
   <<: *default
   database: ios_demo_test
 
+docker:
+  <<: *default
+  database: ios_demo_docker
+  username: postgres
+  host: <%= ENV['IOSDEMO_DB_1_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['IOSDEMO_DB_1_PORT_5432_TCP_PORT'] %>
+

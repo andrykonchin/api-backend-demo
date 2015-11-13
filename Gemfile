@@ -23,6 +23,10 @@ group :test do
   gem 'database_cleaner'
 end
 
+group :docker do
+  gem 'rails_stdout_logging'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
