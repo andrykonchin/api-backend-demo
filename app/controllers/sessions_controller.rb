@@ -1,17 +1,14 @@
 class SessionsController < ApplicationController
   include WardenHelper
 
-  before_action only: :create do
-    unless params[:user][:email].present?
-      render_errors(['Login Failed'], status: 401)
-    end
-  end
+  before_action :require_credentials_in_params, only: :create
 
   def create
     user = User.find_by(email: params[:user][:email])
 
     if BCrypt::Password.new(user.encrypted_password) == params[:user][:password]
-      device_session = user.device_sessions.create(authentication_token: generate_token(user))
+      device_session = user.device_sessions.create(
+        authentication_token: generate_token(user))
       render_resource_or_errors(device_session)
     else
       render_errors(['Login Failed'], status: 401)
@@ -37,5 +34,11 @@ class SessionsController < ApplicationController
 
   def authentication_token
     TokenAuthentication.token_from_request(request)
+  end
+
+  def require_credentials_in_params
+    unless params[:user][:email].present?
+      render_errors(['Login Failed'], status: 401)
+    end
   end
 end

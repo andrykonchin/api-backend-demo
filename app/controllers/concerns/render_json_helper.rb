@@ -1,7 +1,4 @@
-class ApplicationController < ActionController::API
-  include ActionController::Serialization
-  include RenderJsonHelper
-
+module RenderJsonHelper
   def render_resource_or_errors(resource, options = {})
     if resource.errors.empty?
       render_resource_data(resource, { status: 201 }.merge(options))
@@ -19,12 +16,15 @@ class ApplicationController < ActionController::API
   end
 
   def render_errors(errors, options = {})
-    info = options.delete(:info) || {}
-    render_json({ errors: errors, success: false }.merge(info), { status: 422 }.merge(options))
+    render_json(build_errors(errors, options), { status: 422 }.merge(options))
   end
 
   def render_resource_errors(resource)
     render_errors(resource.errors.full_messages)
+  end
+
+  def build_errors(errors)
+    { errors: errors, success: false }
   end
 
   private

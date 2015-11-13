@@ -1,3 +1,6 @@
+# See details here:
+# http://blog.maestrano.com/rails-api-authentication-with-warden-without-devise/
+
 module WardenHelper
   extend ActiveSupport::Concern
 
